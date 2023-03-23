@@ -22,8 +22,4 @@ public class CityService {
         return cityRepository.findAll().stream().map(CityPojo::fromEntity).collect(Collectors.toList());
     }
 
-    public CityPojo findById(UUID id){
-        return CityPojo.fromEntity(cityRepository.getReferenceById(id));
-    }
-
 }
