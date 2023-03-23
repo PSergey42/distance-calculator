@@ -1,6 +1,7 @@
 package com.example.distancecalculator.service;
 
 import com.example.distancecalculator.entity.City;
+import com.example.distancecalculator.entity.Distance;
 import com.example.distancecalculator.entity.model.CityPojo;
 import com.example.distancecalculator.entity.model.DistancePojo;
 import com.example.distancecalculator.entity.model.InputDistancePojo;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class DistanceService {
@@ -36,20 +38,14 @@ public class DistanceService {
                 return distances;
             }
             case DISTANCE_MATRIX: {
-                for (City city1: inputDistancePojo.getFromCities()) {
-                    for (City city2: inputDistancePojo.getToCities()) {
-                        distances.add(
-                               DistancePojo.fromEntity(distanceRepository.
-                                       findDistanceByFromCity_IdAndToCity_Id(city1.getId(), city2.getId()).get())
-                        );
-                    }
-                }
-                return distances;
+                return distanceRepository.findDistanceByFromCitiesAndToCities(inputDistancePojo.getFromCities(), inputDistancePojo.getToCities())
+                        .stream().map(DistancePojo::fromEntity).collect(Collectors.toList());
+
             }
             case ALL:{
 
             }
         }
-        return distances;
+        return null;
     }
 }

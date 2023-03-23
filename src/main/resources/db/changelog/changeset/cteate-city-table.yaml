@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-city
+      author: Polyakov Sergey
+      changes:
+        - createTable:
+            tableName: city
+            columns:
+              - column:
+                  name: city_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: latitude
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: longitude
+                  type: double
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: add_unique_constraint_to_table
+      author: Polyakov Sergey
+      changes:
+        - addUniqueConstraint:
+            tableName: city
+            columnNames: latitude, longitude
+            constraintName: unique

@@ -10,11 +10,11 @@ public class Distance {
     @Id
     @Column(name = "distance_id")
     private UUID id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "from_city_id", nullable = false)
     private City fromCity;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "to_city_id", nullable = false)
     private City toCity;
     @Column(name = "distance")
     private double distance;
