@@ -1,12 +1,17 @@
 package com.example.distancecalculator.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "distance")
-public class Distance {
+@XmlRootElement(name = "distance")
+public class Distance implements Serializable {
     @Id
     @Column(name = "distance_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +36,12 @@ public class Distance {
 
     }
 
+
     public long getId() {
         return id;
     }
 
+    @XmlElement(name = "distance_id")
     public void setId(long id) {
         this.id = id;
     }
@@ -43,6 +50,7 @@ public class Distance {
         return fromCity;
     }
 
+    @XmlElement(name = "fromCity")
     public void setFromCity(City fromCity) {
         this.fromCity = fromCity;
     }
@@ -51,6 +59,7 @@ public class Distance {
         return toCity;
     }
 
+    @XmlElement(name = "toCity")
     public void setToCity(City toCity) {
         this.toCity = toCity;
     }
@@ -59,6 +68,7 @@ public class Distance {
         return distance;
     }
 
+    @XmlElement(name = "spacing")
     public void setDistance(double distance) {
         this.distance = distance;
     }

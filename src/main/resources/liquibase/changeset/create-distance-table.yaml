@@ -34,9 +34,11 @@ databaseChangeLog:
               constraintName: fk_distance_from_city
               referencedColumnNames: city_id
               referencedTableName: city
+              deleteCascade: true
         - addForeignKeyConstraint:
             baseColumnNames: to_city_id
             baseTableName: distance
             constraintName: fk_distance_to_city
             referencedColumnNames: city_id
             referencedTableName: city
+            deleteCascade: true

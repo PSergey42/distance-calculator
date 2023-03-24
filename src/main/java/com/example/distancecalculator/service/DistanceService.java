@@ -4,16 +4,15 @@ import com.example.distancecalculator.entity.City;
 import com.example.distancecalculator.entity.Distance;
 import com.example.distancecalculator.entity.model.DistancePojo;
 import com.example.distancecalculator.entity.model.InputDistancePojo;
+import com.example.distancecalculator.exception.EmptyResponseFromDatabaseException;
+import com.example.distancecalculator.exception.WrongTypeException;
 import com.example.distancecalculator.repository.CityRepository;
 import com.example.distancecalculator.repository.DistanceRepository;
 import com.example.distancecalculator.util.Calculation;
 import com.example.distancecalculator.util.CalculationType;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,11 +30,11 @@ public class DistanceService {
         Set<DistancePojo> distances = new HashSet<>();
         List<City> fromCities = cityRepository.findAllById(inputDistancePojo.getFromCities());
         if(fromCities.isEmpty()){
-            throw new RuntimeException();
+            throw new EmptyResponseFromDatabaseException("В базе данных нет информации о fromCities");
         }
         List<City> toCities = cityRepository.findAllById(inputDistancePojo.getToCities());
-        if(fromCities.isEmpty()){
-            throw new RuntimeException();
+        if(toCities.isEmpty()){
+            throw new EmptyResponseFromDatabaseException("В базе данных нет информации о toCities");
         }
         switch(inputDistancePojo.getType()){
             case CROWFLIGHT: {
@@ -44,20 +43,20 @@ public class DistanceService {
             case DISTANCE_MATRIX: {
                 Set<Distance> distances1 = distanceRepository.findDistanceByFromCitiesAndToCities(fromCities, toCities);
                 if(distances1.isEmpty()){
-                    throw new RuntimeException();
+                    throw new EmptyResponseFromDatabaseException("В базе данных нет информации о расстоянии между городами из списков");
                 }
                 return distances1.stream().map((x) -> DistancePojo.fromEntity(x, inputDistancePojo.getType())).collect(Collectors.toSet());
             }
             case ALL:{
                 Set<Distance> distances1 = distanceRepository.findDistanceByFromCitiesAndToCities(fromCities, toCities);
                 if(distances1.isEmpty()){
-                    throw new RuntimeException();
+                    throw new EmptyResponseFromDatabaseException("В базе данных нет информации о расстоянии между городами из списков");
                 }
                 distances.addAll(calculationByTypeCrowflight(fromCities, toCities, distances, CalculationType.CROWFLIGHT));
                 distances.addAll(distances1.stream().map((x) -> DistancePojo.fromEntity(x, CalculationType.DISTANCE_MATRIX)).collect(Collectors.toSet()));
                 return distances;
             }
-            default: throw new RuntimeException();
+            default: throw new WrongTypeException("Данный тип отсуствует");
         }
     }
 
