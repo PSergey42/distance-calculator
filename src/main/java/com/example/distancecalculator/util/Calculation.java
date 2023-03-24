@@ -12,7 +12,6 @@ public class Calculation {
                 Math.pow(Math.sin((parse(city2.getLongitude()) - parse(city1.getLongitude()))/2) ,2)))) * EARTH_RADIUS;
     }
 
-    // coordinates in radians
     private static double parse(double coordinate){
         return (Math.PI * coordinate)/180;
     }

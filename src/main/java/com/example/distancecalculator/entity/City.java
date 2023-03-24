@@ -2,14 +2,14 @@ package com.example.distancecalculator.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "city")
 public class City {
     @Id
     @Column(name = "city_id")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column(name = "name")
     private String name;
     @Column(name = "latitude")
@@ -17,7 +17,7 @@ public class City {
     @Column(name = "longitude")
     private double longitude;
 
-    public City(UUID id, String name, double latitude, double longitude) {
+    public City(long id, String name, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -28,11 +28,11 @@ public class City {
 
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -70,12 +70,13 @@ public class City {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
-        return Double.compare(city.latitude, latitude) == 0 && Double.compare(city.longitude, longitude) == 0 && id.equals(city.id) && name.equals(city.name);
+        return id == city.id && Double.compare(city.latitude, latitude) == 0 && Double.compare(city.longitude, longitude) == 0 && name.equals(city.name);
     }
 
     @Override

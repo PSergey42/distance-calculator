@@ -14,6 +14,10 @@ public class DistancePojo {
         this.distance = distance;
     }
 
+    public DistancePojo() {
+
+    }
+
     public CityPojo getFromCity() {
         return fromCity;
     }

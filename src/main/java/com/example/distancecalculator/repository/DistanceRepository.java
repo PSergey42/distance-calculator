@@ -7,13 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @Repository
-public interface DistanceRepository extends JpaRepository<Distance, UUID> {
+public interface DistanceRepository extends JpaRepository<Distance, Long> {
 
-    @Query(value = "SELECT * FROM distance b WHERE b.from_city IN :fromCities AND b.to_city IN :toCities", nativeQuery = true)
+    @Query(value = "SELECT * FROM distance WHERE from_city_id IN :fromCities AND to_city_id IN :toCities", nativeQuery = true)
     Set<Distance> findDistanceByFromCitiesAndToCities(List<City> fromCities, List<City> toCities);
+
 }

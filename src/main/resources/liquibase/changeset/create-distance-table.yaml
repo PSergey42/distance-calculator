@@ -8,18 +8,19 @@ databaseChangeLog:
             columns:
               - column:
                   name: distance_id
-                  type: uuid
+                  type: bigint
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: from_city_id
-                  type: uuid
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: to_city_id
-                  type: uuid
+                  type: bigint
                   constraints:
                     nullable: false
               - column:

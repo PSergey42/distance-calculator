@@ -5,19 +5,19 @@ import com.example.distancecalculator.entity.City;
 import java.util.UUID;
 
 public class CityPojo {
-    private UUID id;
+    private long id;
     private String name;
 
-    public CityPojo(UUID id, String name) {
+    public CityPojo(long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 

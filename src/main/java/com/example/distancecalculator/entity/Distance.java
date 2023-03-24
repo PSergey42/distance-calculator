@@ -9,7 +9,8 @@ import java.util.UUID;
 public class Distance {
     @Id
     @Column(name = "distance_id")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "from_city_id", nullable = false)
     private City fromCity;
@@ -19,7 +20,7 @@ public class Distance {
     @Column(name = "distance")
     private double distance;
 
-    public Distance(UUID id, City fromCity, City toCity, double distance) {
+    public Distance(long id, City fromCity, City toCity, double distance) {
         this.id = id;
         this.fromCity = fromCity;
         this.toCity = toCity;
@@ -30,11 +31,11 @@ public class Distance {
 
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -77,7 +78,7 @@ public class Distance {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Distance distance1 = (Distance) o;
-        return Double.compare(distance1.distance, distance) == 0 && id.equals(distance1.id) && fromCity.equals(distance1.fromCity) && toCity.equals(distance1.toCity);
+        return id == distance1.id && Double.compare(distance1.distance, distance) == 0 && fromCity.equals(distance1.fromCity) && toCity.equals(distance1.toCity);
     }
 
     @Override

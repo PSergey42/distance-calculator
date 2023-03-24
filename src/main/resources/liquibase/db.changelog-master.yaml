@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/changeset/cteate-city-table.yaml
+  - include:
+      file: liquibase/changeset/create-distance-table.yaml
