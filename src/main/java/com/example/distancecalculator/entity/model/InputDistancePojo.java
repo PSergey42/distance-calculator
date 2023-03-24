@@ -8,14 +8,15 @@ import java.util.List;
 
 public class InputDistancePojo {
     private CalculationType type;
-    private List<City> fromCities;
-    private List<City> toCities;
+    private List<Long> fromCities;
+    private List<Long> toCities;
 
-    public InputDistancePojo(CalculationType type, List<City> fromCities, List<City> toCities) {
+    public InputDistancePojo(CalculationType type, List<Long> fromCities, List<Long> toCities) {
         this.type = type;
         this.fromCities = fromCities;
         this.toCities = toCities;
     }
+
 
     public CalculationType getType() {
         return type;
@@ -25,19 +26,19 @@ public class InputDistancePojo {
         this.type = type;
     }
 
-    public List<City> getFromCities() {
+    public List<Long> getFromCities() {
         return fromCities;
     }
 
-    public void setFromCities(List<City> fromCities) {
+    public void setFromCities(List<Long> fromCities) {
         this.fromCities = fromCities;
     }
 
-    public List<City> getToCities() {
+    public List<Long> getToCities() {
         return toCities;
     }
 
-    public void setToCities(List<City> toCities) {
+    public void setToCities(List<Long> toCities) {
         this.toCities = toCities;
     }
 }
