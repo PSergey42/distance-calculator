@@ -73,46 +73,4 @@ public class DistanceService {
         return distances;
     }
 
-
-
-    //спросил про тип ALL уже после реализации этого метода (что не найдет в бд, рассчитает и добавит к результату)
-    private Set<DistancePojo> f(List<City> fromCities, List<City> toCities){
-        Set<Distance> distances = distanceRepository.findDistanceByFromCitiesAndToCities(fromCities, toCities);
-        Set<DistancePojo> absentDistances = new HashSet<>();
-        int i = 0;
-        for (City fromCity: fromCities) {
-            for (City toCity: toCities) {
-                if(distances.isEmpty()){
-                    absentDistances.add(new DistancePojo(
-                            fromCity.getName(),
-                            toCity.getName(),
-                            CalculationType.CROWFLIGHT,
-                            Calculation.calculationByHaversine(fromCity, toCity)));
-                }
-                for (Distance distance: distances) {
-                    i++;
-                    if(!distance.getFromCity().equals(fromCity) && !distance.getToCity().equals(toCity)) {
-                        absentDistances.add(new DistancePojo(
-                                fromCity.getName(),
-                                toCity.getName(),
-                                CalculationType.CROWFLIGHT,
-                                Calculation.calculationByHaversine(fromCity, toCity)));
-                        i = 0;
-                        break;
-                    }
-                    if(i == distances.size()){
-                        i = 0;
-                        absentDistances.add(new DistancePojo(
-                                fromCity.getName(),
-                                toCity.getName(),
-                                CalculationType.CROWFLIGHT,
-                                Calculation.calculationByHaversine(fromCity, toCity)));
-                    }
-                }
-            }
-        }
-        Set<DistancePojo> distances1 = distances.stream().map((x) -> DistancePojo.fromEntity(x, CalculationType.DISTANCE_MATRIX)).collect(Collectors.toSet());
-        distances1.addAll(absentDistances);
-        return distances1;
-    }
 }

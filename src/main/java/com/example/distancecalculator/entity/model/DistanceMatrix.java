@@ -22,22 +22,24 @@ public class DistanceMatrix implements Serializable {
         this.distances = distances;
     }
 
+    @XmlElementWrapper(name="cities", nillable = true)
+    @XmlElement(name = "city")
     public List<City> getCities() {
         return cities;
     }
 
-    @XmlElementWrapper(name="cities", nillable = true)
-    @XmlElement(name = "city")
+
     public void setCities(List<City> cities) {
         this.cities = cities;
     }
 
+    @XmlElementWrapper(name="distances", nillable = true)
+    @XmlElement(name = "distance")
     public List<Distance> getDistances() {
         return distances;
     }
 
-    @XmlElementWrapper(name="distances", nillable = true)
-    @XmlElement(name = "distance")
+
     public void setDistances(List<Distance> distances) {
         this.distances = distances;
     }

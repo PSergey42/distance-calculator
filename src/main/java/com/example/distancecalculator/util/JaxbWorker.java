@@ -24,7 +24,7 @@ public class JaxbWorker {
     }
 
     private static File saveFileOnServer(MultipartFile multiFile){
-        File file = new File("src/main/resources/file/file.xml");
+        File file = new File("src/main/resources/file/" + multiFile.getOriginalFilename());
         try (OutputStream os = new FileOutputStream(file)) {
             os.write(multiFile.getInputStream().readAllBytes());
         } catch (IOException e) {
